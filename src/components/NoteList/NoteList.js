@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal, Note, NoteForm } from '..';
 import { NewNoteButton, StyledNoteList } from './NoteList.styles';
 
@@ -7,6 +7,11 @@ function NoteList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // TODO: store and get notes using localStorage.
+
+  useEffect(() => {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    setNotes(notes);
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -17,7 +22,9 @@ function NoteList() {
   };
 
   const addNote = (note) => {
-    setNotes([note, ...notes]);
+    const newNotes = [note, ...notes];
+    setNotes(newNotes);
+    localStorage.setItem('notes', JSON.stringify(newNotes));
   };
 
   const updateNote = (updatedNoteId, updatedNote) => {
@@ -25,11 +32,13 @@ function NoteList() {
       note.id === updatedNoteId ? updatedNote : note
     );
     setNotes(newNotes);
+    localStorage.setItem('notes', JSON.stringify(newNotes));
   };
 
   const deleteNote = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
+    localStorage.setItem('notes', JSON.stringify(newNotes));
   };
 
   return (
