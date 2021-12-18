@@ -6,8 +6,6 @@ function NoteList() {
   const [notes, setNotes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // TODO: store and get notes using localStorage.
-
   useEffect(() => {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     setNotes(notes);
