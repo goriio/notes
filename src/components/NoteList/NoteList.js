@@ -18,10 +18,14 @@ function NoteList() {
 
   const addNote = (note) => {
     setNotes([note, ...notes]);
-    console.log(notes);
   };
 
-  // TODO: add an updateNote function
+  const updateNote = (updatedNoteId, updatedNote) => {
+    const newNotes = notes.map((note) =>
+      note.id === updatedNoteId ? updatedNote : note
+    );
+    setNotes(newNotes);
+  };
 
   const deleteNote = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);
@@ -33,7 +37,12 @@ function NoteList() {
       <StyledNoteList>
         {notes.length ? (
           notes.map((note) => (
-            <Note key={note.id} {...note} handleDelete={deleteNote} />
+            <Note
+              key={note.id}
+              {...note}
+              handleDelete={deleteNote}
+              updateNote={updateNote}
+            />
           ))
         ) : (
           <p>Add a note.</p>

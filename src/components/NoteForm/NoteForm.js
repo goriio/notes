@@ -17,9 +17,9 @@ const colors = [
   'hsl(150, 70%, 85%)',
 ];
 
-function NoteForm({ addNote, setIsModalOpen }) {
-  const [note, setNote] = useState('');
-  const [color, setColor] = useState(colors[0]);
+function NoteForm({ addNote, setIsModalOpen, edit }) {
+  const [note, setNote] = useState(edit ? edit.text : '');
+  const [color, setColor] = useState(edit ? edit.backgroundColor : colors[0]);
 
   const handleNoteChange = (event) => {
     setNote(event.target.value);
@@ -71,7 +71,7 @@ function NoteForm({ addNote, setIsModalOpen }) {
             </Fragment>
           ))}
         </ColorsGroup>
-        <AddButton onClick={handleSubmit}>Add</AddButton>
+        <AddButton onClick={handleSubmit}>{edit ? 'Update' : 'Add'}</AddButton>
       </BottomContainer>
     </StyledNoteForm>
   );
