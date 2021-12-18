@@ -50,7 +50,7 @@ function NoteList() {
       </StyledNoteList>
       <NewNoteButton onClick={openModal}>+</NewNoteButton>
       <Modal isOpen={isModalOpen} handleClose={closeModal}>
-        <NoteForm addNote={addNote} setIsModalOpen={setIsModalOpen} />
+        <NoteForm submitNote={addNote} setIsModalOpen={setIsModalOpen} />
       </Modal>
     </>
   );

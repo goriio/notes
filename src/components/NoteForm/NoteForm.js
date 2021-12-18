@@ -1,6 +1,6 @@
 import { useState, Fragment } from 'react';
 import {
-  AddButton,
+  SubmitButton,
   BottomContainer,
   ColorsGroup,
   ColorRadio,
@@ -17,7 +17,7 @@ const colors = [
   'hsl(150, 70%, 85%)',
 ];
 
-function NoteForm({ addNote, setIsModalOpen, edit }) {
+function NoteForm({ submitNote, setIsModalOpen, edit }) {
   const [note, setNote] = useState(edit ? edit.text : '');
   const [color, setColor] = useState(edit ? edit.backgroundColor : colors[0]);
 
@@ -40,7 +40,7 @@ function NoteForm({ addNote, setIsModalOpen, edit }) {
     };
 
     console.log(newNote);
-    addNote(newNote);
+    submitNote(newNote);
 
     setNote('');
     setColor(colors[0]);
@@ -71,7 +71,9 @@ function NoteForm({ addNote, setIsModalOpen, edit }) {
             </Fragment>
           ))}
         </ColorsGroup>
-        <AddButton onClick={handleSubmit}>{edit ? 'Update' : 'Add'}</AddButton>
+        <SubmitButton onClick={handleSubmit}>
+          {edit ? 'Update' : 'Add'}
+        </SubmitButton>
       </BottomContainer>
     </StyledNoteForm>
   );

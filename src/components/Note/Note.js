@@ -38,7 +38,7 @@ function Note({ id, backgroundColor, text, date, handleDelete, updateNote }) {
     return (
       <Modal isOpen={isModalOpen} handleClose={closeModal}>
         <NoteForm
-          addNote={handleUpdate}
+          submitNote={handleUpdate}
           setIsModalOpen={setIsModalOpen}
           edit={edit}
         />

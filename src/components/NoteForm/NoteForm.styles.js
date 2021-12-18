@@ -18,7 +18,7 @@ export const BottomContainer = styled.div({
   alignItems: 'center',
 });
 
-export const AddButton = styled.button({
+export const SubmitButton = styled.button({
   padding: '0.5rem',
   border: 'none',
   borderRadius: '8px',
