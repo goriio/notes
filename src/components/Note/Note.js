@@ -9,13 +9,15 @@ import { Modal, NoteForm } from '..';
 import { useState } from 'react';
 
 function Note({ id, backgroundColor, text, date, handleDelete, updateNote }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [edit, setEdit] = useState({
+  const editDefault = {
     id: null,
     text: '',
     backgroundColor: '',
-  });
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [edit, setEdit] = useState(editDefault);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -23,29 +25,13 @@ function Note({ id, backgroundColor, text, date, handleDelete, updateNote }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    if (edit.id) setEdit(editDefault);
   };
 
   const handleUpdate = (updatedNote) => {
     updateNote(edit.id, updatedNote);
-    setEdit({
-      id: null,
-      text: '',
-      backgroundColor: '',
-    });
+    setEdit(editDefault);
   };
-
-  if (edit.id) {
-    return (
-      <Modal isOpen={isModalOpen} handleClose={closeModal}>
-        <NoteForm
-          submitNote={handleUpdate}
-          setIsModalOpen={setIsModalOpen}
-          edit={edit}
-        />
-        ;
-      </Modal>
-    );
-  }
 
   return (
     <StyledNote backgroundColor={backgroundColor}>
@@ -57,10 +43,22 @@ function Note({ id, backgroundColor, text, date, handleDelete, updateNote }) {
           style={{ cursor: 'pointer' }}
         />
         <Modal isOpen={isModalOpen} handleClose={closeModal}>
-          <ModalOption onClick={() => setEdit({ id, text, backgroundColor })}>
-            Edit
-          </ModalOption>
-          <ModalOption onClick={() => handleDelete(id)}>Delete</ModalOption>
+          {edit.id ? (
+            <NoteForm
+              submitNote={handleUpdate}
+              setIsModalOpen={setIsModalOpen}
+              edit={edit}
+            />
+          ) : (
+            <>
+              <ModalOption
+                onClick={() => setEdit({ id, text, backgroundColor })}
+              >
+                Edit
+              </ModalOption>
+              <ModalOption onClick={() => handleDelete(id)}>Delete</ModalOption>
+            </>
+          )}
         </Modal>
       </BottomContainer>
     </StyledNote>
