@@ -4,6 +4,7 @@ export const StyledModal = styled.div({
   position: 'fixed',
   inset: '0',
   background: 'hsla(0, 0%, 0%, 0.6)',
+  zIndex: '1000',
 
   '@media(min-width: 500px)': {
     display: 'grid',
